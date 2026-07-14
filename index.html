@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>In Stock | Secure Marketplace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a24;
+            --bg-card-hover: #222230;
+            --border-color: #2a2a3a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --accent-gold: #ffd700;
+            --accent-red: #ff4757;
+            --accent-green: #2ed573;
+            --accent-blue: #3742fa;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --shadow-glow: 0 0 20px rgba(102, 126, 234, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(18, 18, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Announcement Banner */
+        .announcement {
+            background: linear-gradient(90deg, rgba(255, 71, 87, 0.1) 0%, rgba(255, 71, 87, 0.05) 100%);
+            border-left: 4px solid var(--accent-red);
+            margin: 2rem auto;
+            max-width: 1400px;
+            padding: 1.5rem 2rem;
+            border-radius: 0 12px 12px 0;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(255, 71, 87, 0); }
+        }
+
+        .announcement-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .fire-icon {
+            color: var(--accent-red);
+            font-size: 1.2rem;
+        }
+
+        .announcement h3 {
+            color: var(--accent-red);
+            font-size: 1.1rem;
+        }
+
+        .announcement p {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .announcement a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        .announcement a:hover {
+            text-decoration: underline;
+        }
+
+        .session-id {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg-card);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .copy-btn-small {
+            background: var(--accent-blue);
+            border: none;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .copy-btn-small:hover {
+            background: #4a55d1;
+            transform: translateY(-1px);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            background: var(--bg-card-hover);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), var(--shadow-glow);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .balance {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .bank-badge {
+            background: rgba(102, 126, 234, 0.1);
+            color: #a29bfe;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .detail-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .detail-icon {
+            width: 20px;
+            text-align: center;
+            opacity: 0.7;
+        }
+
+        .card-type {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .visa { color: #1a1f71; }
+        .mastercard { 
+            background: linear-gradient(90deg, #eb001b 50%, #f79e1b 50%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .warning-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 71, 87, 0.1);
+            color: var(--accent-red);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255, 71, 87, 0.2);
+        }
+
+        .price-tag {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--accent-green);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .price-tag::before {
+            content: '💵';
+            font-size: 1.25rem;
+        }
+
+        .card-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            padding: 0.875rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border-color);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+            color: var(--text-secondary);
+        }
+
+        footer a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast-icon {
+            color: var(--accent-green);
+            font-size: 1.25rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .announcement {
+                margin: 1rem;
+                padding: 1rem;
+            }
+        }
+
+        /* Loading Animation */
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+
+        .loading {
+            background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-card-hover) 50%, var(--bg-card) 75%);
+            background-size: 1000px 100%;
+            animation: shimmer 2s infinite;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <div class="logo">◈ MARKET</div>
+            <ul class="nav-links">
+                <li><a href="#stock">In Stock</a></li>
+                <li><a href="#rules">Rules</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#support">Support</a></li>
+                <li><a href="#channel">Channel</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="announcement">
+        <div class="announcement-header">
+            <span class="fire-icon">🔥</span>
+            <h3>Important announcement</h3>
+        </div>
+        <p>Telegram continues to massively delete channels, so save the site in your tabs so you don't lose it.</p>
+        <p>Here is my new channel: <a href="https://t.me/+4sukKQ3dYZs4ZjIy" target="_blank">https://t.me/+4sukKQ3dYZs4ZjIy</a></p>
+        <p style="margin-top: 1rem;">Save the backup contact in messenger Session:</p>
+        <div class="session-id">
+            <span id="sessionId">05c415ff4ac63433134feb8bfd07b90f35aa68eed07e0e5df8d232f90f0f66fb66</span>
+            <button class="copy-btn-small" onclick="copySession()">Copy</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="cards-grid" id="cardsContainer">
+            <!-- Cards will be inserted here by JavaScript -->
+        </div>
+    </div>
+
+    <footer>
+        <p>We on <a href="#">WWH-Club</a></p>
+    </footer>
+
+    <div class="toast" id="toast">
+        <span class="toast-icon">✓</span>
+        <span id="toastMessage">Copied to clipboard!</span>
+    </div>
+
+    <script>
+        const cardData = [
+            { balance: 13500, bank: 'FNB of Alaska', type: 'MASTERCARD', location: 'AK|99518', price: 150 },
+            { balance: 86900, bank: 'PNC BANK', type: 'VISA', location: 'MO|63342', price: 150 },
+            { balance: 50000, bank: 'PNC BANK', type: 'VISA', location: 'MI|48910', price: 150 },
+            { balance: 49400, bank: 'PNC BANK', type: 'VISA', location: 'OH|45242', price: 150 },
+            { balance: 48900, bank: 'PNC BANK', type: 'VISA', location: 'AZ|86004', price: 150 },
+            { balance: 28200, bank: 'PNC BANK', type: 'VISA', location: 'PA|15108', price: 140 },
+            { balance: 26700, bank: 'PNC BANK', type: 'VISA', location: 'IN|46060', price: 140 },
+            { balance: 26600, bank: 'PNC BANK', type: 'VISA', location: 'MI|48026', price: 140 },
+            { balance: 25000, bank: 'PNC BANK', type: 'VISA', location: 'PA|15212', price: 140 },
+            { balance: 21800, bank: 'PNC BANK', type: 'VISA', location: 'IL|60106', price: 140 },
+            { balance: 19600, bank: 'PNC BANK', type: 'VISA', location: 'NJ|07462', price: 130 },
+            { balance: 19000, bank: 'PNC BANK', type: 'VISA', location: 'IN|46545', price: 130 },
+            { balance: 16500, bank: 'PNC BANK', type: 'VISA', location: 'OH|43214', price: 120 },
+            { balance: 15900, bank: 'PNC BANK', type: 'VISA', location: 'OH|43224', price: 120 },
+            { balance: 14700, bank: 'PNC BANK', type: 'VISA', location: 'NJ|07731', price: 120 },
+            { balance: 14300, bank: 'PNC BANK', type: 'VISA', location: 'OH|45244', price: 120 }
+        ];
+
+        function getCardIcon(type) {
+            if (type === 'VISA') return '<span class="visa">VISA</span>';
+            return '<span class="mastercard">MASTERCARD</span>';
+        }
+
+        function createCard(data, index) {
+            return `
+                <div class="card" style="animation: fadeIn 0.5s ease ${index * 0.05}s both;">
+                    <div class="card-header">
+                        <div class="balance">$${data.balance.toLocaleString()}</div>
+                        <span class="bank-badge">${data.bank}</span>
+                    </div>
+                    
+                    <div class="card-details">
+                        <div class="detail-row">
+                            <span class="detail-icon">💳</span>
+                            <span class="card-type">${getCardIcon(data.type)}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-icon">📫</span>
+                            <span>${data.location}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-icon">💻</span>
+                            <span>Fdecs</span>
+                        </div>
+                    </div>
+                    
+                    <div class="warning-badge">
+                        <span>⚠️</span>
+                        <span>Instant minik</span>
+                    </div>
+                    
+                    <div class="price-tag">$${data.price}</div>
+                    
+                    <div class="card-actions">
+                        <button class="btn btn-primary" onclick="buyItem(${index})">
+                            Buy
+                        </button>
+                        <button class="btn btn-secondary" onclick="copyDetails(${index})">
+                            Copy
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderCards() {
+            const container = document.getElementById('cardsContainer');
+            container.innerHTML = cardData.map((data, index) => createCard(data, index)).join('');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        function copySession() {
+            const sessionId = document.getElementById('sessionId').textContent;
+            navigator.clipboard.writeText(sessionId).then(() => {
+                showToast('Session ID copied to clipboard!');
+            });
+        }
+
+        function copyDetails(index) {
+            const data = cardData[index];
+            const details = `Balance: $${data.balance.toLocaleString()}\nBank: ${data.bank}\nType: ${data.type}\nLocation: ${data.location}\nPrice: $${data.price}`;
+            navigator.clipboard.writeText(details).then(() => {
+                showToast('Card details copied!');
+            });
+        }
+
+        function buyItem(index) {
+            const data = cardData[index];
+            showToast(`Initiating purchase for $${data.balance.toLocaleString()} card...`);
+            // Add your purchase logic here
+        }
+
+        // Add fade-in animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Render on load
+        renderCards();
+    </script>
+</body>
+</html>
