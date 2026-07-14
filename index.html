@@ -25,8 +25,10 @@
             --accent-green: #2ed573;
             --accent-blue: #5352ed;
             --accent-purple: #a55eea;
+            --accent-orange: #ff6b35;
             --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --gradient-gold: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-admin: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
         }
 
         body {
@@ -70,6 +72,7 @@
             display: flex;
             gap: 2.5rem;
             list-style: none;
+            align-items: center;
         }
 
         .nav-links a {
@@ -85,19 +88,21 @@
             color: var(--text-primary);
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -6px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gradient-primary);
-            transition: width 0.3s ease;
+        .discount-btn {
+            background: var(--gradient-gold);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s;
         }
 
-        .nav-links a:hover::after {
-            width: 100%;
+        .discount-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(240, 147, 251, 0.4);
         }
 
         /* Contact Banner */
@@ -150,6 +155,36 @@
         .copy-btn:hover {
             background: #7c3aed;
             transform: translateY(-1px);
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            max-width: 1600px;
+            margin: 0 auto 2rem;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .stat-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 1.25rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
         }
 
         /* Filters */
@@ -212,529 +247,4 @@
             border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 1.5rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--gradient-primary);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            background: var(--bg-card-hover);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(102, 126, 234, 0.2);
-            border-color: rgba(102, 126, 234, 0.3);
-        }
-
-        .card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-        }
-
-        .balance {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--accent-gold);
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
-        }
-
-        .bank-badge {
-            background: rgba(102, 126, 234, 0.15);
-            color: #a29bfe;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .card-details {
-            display: flex;
-            flex-direction: column;
-            gap: 0.6rem;
-            margin-bottom: 1rem;
-        }
-
-        .detail-row {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .detail-icon {
-            width: 20px;
-            text-align: center;
-            opacity: 0.8;
-            font-size: 1rem;
-        }
-
-        .security-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            padding: 0.25rem 0.6rem;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-left: auto;
-        }
-
-        .security-high {
-            background: rgba(46, 213, 115, 0.15);
-            color: var(--accent-green);
-        }
-
-        .security-medium {
-            background: rgba(255, 193, 7, 0.15);
-            color: #ffc107;
-        }
-
-        .security-low {
-            background: rgba(255, 71, 87, 0.15);
-            color: var(--accent-red);
-        }
-
-        .warning-row {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            font-size: 0.85rem;
-        }
-
-        .instant-badge {
-            background: rgba(255, 71, 87, 0.1);
-            color: var(--accent-red);
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            font-weight: 600;
-            border: 1px solid rgba(255, 71, 87, 0.2);
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-
-        .price-tag {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: var(--accent-green);
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .card-actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.75rem;
-        }
-
-        .btn {
-            padding: 0.875rem;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .btn-primary {
-            background: var(--gradient-primary);
-            color: white;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
-        }
-
-        .btn-secondary {
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
-        }
-
-        .btn-secondary:hover {
-            background: var(--border-color);
-            transform: translateY(-2px);
-        }
-
-        /* Stats Bar */
-        .stats-bar {
-            max-width: 1600px;
-            margin: 0 auto 2rem;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-
-        .stat-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            padding: 1.25rem;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .stat-value {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--accent-gold);
-        }
-
-        .stat-label {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            margin-top: 0.25rem;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 3rem 2rem;
-            border-top: 1px solid var(--border-color);
-            margin-top: 4rem;
-            color: var(--text-secondary);
-        }
-
-        footer a {
-            color: var(--accent-purple);
-            text-decoration: none;
-        }
-
-        /* Toast */
-        .toast {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            transform: translateY(100px);
-            opacity: 0;
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-
-        .toast.show {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .toast-icon {
-            color: var(--accent-green);
-        }
-
-        /* Category Header */
-        .category-header {
-            margin: 2rem 0 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .category-header h2 {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .category-count {
-            background: var(--bg-secondary);
-            color: var(--text-secondary);
-            padding: 0.2rem 0.6rem;
-            border-radius: 12px;
-            font-size: 0.75rem;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .cards-grid { grid-template-columns: 1fr; }
-            .filters { flex-direction: column; align-items: flex-start; }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
-</head>
-<body>
-
-    <nav>
-        <div class="nav-container">
-            <div class="logo">◈ DARKSTOCK</div>
-            <ul class="nav-links">
-                <li><a href="#stock">In Stock</a></li>
-                <li><a href="#rules">Rules</a></li>
-                <li><a href="#faq">FAQ</a></li>
-                <li><a href="#support">Support</a></li>
-                <li><a href="#channel">Channel</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <div class="contact-banner">
-        <h3>📩 Contact Instructions</h3>
-        <p>Copy the exact card info and send to: <strong>v2bo.xx</strong> on Instagram</p>
-        <p style="margin-top: 0.5rem; font-size: 0.9rem;">After copying any item below, message v2bo.xx with the details to complete your purchase.</p>
-        <div style="margin-top: 1rem;">
-            <div class="contact-handle">
-                <span>IG: @v2bo.xx</span>
-                <button class="copy-btn" onclick="copyText('v2bo.xx')">Copy Username</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="stats-bar">
-        <div class="stat-card">
-            <div class="stat-value" id="totalItems">0</div>
-            <div class="stat-label">Items Available</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-value">$50-120</div>
-            <div class="stat-label">Price Range</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-value">24/7</div>
-            <div class="stat-label">Auto-Delivery</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-value">98%</div>
-            <div class="stat-label">Valid Rate</div>
-        </div>
-    </div>
-
-    <div class="filters">
-        <div class="filter-group">
-            <span class="filter-label">Bank:</span>
-            <button class="filter-btn active" onclick="filterCards('all')">All</button>
-            <button class="filter-btn" onclick="filterCards('Chase')">Chase</button>
-            <button class="filter-btn" onclick="filterCards('BoA')">BoA</button>
-            <button class="filter-btn" onclick="filterCards('Wells')">Wells</button>
-            <button class="filter-btn" onclick="filterCards('Citi')">Citi</button>
-            <button class="filter-btn" onclick="filterCards('PNC')">PNC</button>
-        </div>
-        <div class="filter-group">
-            <span class="filter-label">Type:</span>
-            <button class="filter-btn" onclick="filterCards('VISA')">VISA</button>
-            <button class="filter-btn" onclick="filterCards('MC')">Mastercard</button>
-            <button class="filter-btn" onclick="filterCards('Amex')">Amex</button>
-        </div>
-    </div>
-
-    <div class="container" id="mainContainer">
-        <!-- Categories and cards will be inserted here -->
-    </div>
-
-    <footer>
-        <p>Contact <a href="#">v2bo.xx</a> on Instagram for purchases</p>
-        <p style="margin-top: 0.5rem; font-size: 0.85rem; opacity: 0.7;">We on WWH-Club</p>
-    </footer>
-
-    <div class="toast" id="toast">
-        <span class="toast-icon">✓</span>
-        <span id="toastMessage">Copied!</span>
-    </div>
-
-    <script>
-        const banks = ['Chase', 'Bank of America', 'Wells Fargo', 'Citi', 'PNC', 'US Bank', 'Capital One', 'TD Bank', 'BB&T', 'SunTrust', 'HSBC', 'Barclays'];
-        const states = ['CA', 'TX', 'FL', 'NY', 'PA', 'IL', 'OH', 'GA', 'NC', 'MI', 'NJ', 'VA', 'WA', 'AZ', 'MA', 'IN', 'MO', 'TN', 'MD', 'WI'];
-        const cardTypes = ['VISA', 'MASTERCARD', 'AMEX'];
-        const securityLevels = ['high', 'medium', 'low'];
-        const categories = ['Premium', 'Standard', 'Budget', 'Fresh Drops', 'Instant'];
-
-        function randomInt(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
-        }
-
-        function randomItem(arr) {
-            return arr[Math.floor(Math.random() * arr.length)];
-        }
-
-        // Generate 100+ cards
-        const cards = [];
-        for (let i = 0; i < 120; i++) {
-            const balance = randomInt(2000, 26000);
-            const price = Math.floor(balance * randomInt(25, 45) / 1000) * 5; // $50-120 range
-            const finalPrice = Math.min(Math.max(price, 50), 120);
-            
-            cards.push({
-                id: i,
-                balance: balance,
-                bank: randomItem(banks),
-                type: randomItem(cardTypes),
-                location: `${randomItem(states)}|${randomInt(10000, 99999)}`,
-                price: finalPrice,
-                security: randomItem(securityLevels),
-                category: randomItem(categories),
-                fdecs: ['Verified', 'Checked', 'Live', 'Fullz'][Math.floor(Math.random() * 4)]
-            });
-        }
-
-        // Group by category
-        const grouped = {};
-        cards.forEach(card => {
-            if (!grouped[card.category]) grouped[card.category] = [];
-            grouped[card.category].push(card);
-        });
-
-        function getSecurityBadge(level) {
-            const icons = { high: '🔒', medium: '⚡', low: '⚠️' };
-            const labels = { high: 'High Sec', medium: 'Medium', low: 'Basic' };
-            return `<span class="security-badge security-${level}">${icons[level]} ${labels[level]}</span>`;
-        }
-
-        function getCardIcon(type) {
-            const colors = { 'VISA': '#1a1f71', 'MASTERCARD': 'linear-gradient(90deg, #eb001b, #f79e1b)', 'AMEX': '#016fd0' };
-            return `<span style="font-weight: 700; ${type === 'MASTERCARD' ? 'background: ' + colors[type] + '; -webkit-background-clip: text; -webkit-text-fill-color: transparent;' : 'color: ' + colors[type]}">${type}</span>`;
-        }
-
-        function createCard(card, index) {
-            return `
-                <div class="card" data-bank="${card.bank}" data-type="${card.type}" style="animation: fadeIn 0.4s ease ${index * 0.02}s both;">
-                    <div class="card-header">
-                        <div class="balance">$${card.balance.toLocaleString()}</div>
-                        ${getSecurityBadge(card.security)}
-                    </div>
-                    
-                    <div class="bank-badge">${card.bank}</div>
-                    
-                    <div class="card-details">
-                        <div class="detail-row">
-                            <span class="detail-icon">💳</span>
-                            <span>${getCardIcon(card.type)}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-icon">📫</span>
-                            <span>${card.location}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-icon">💻</span>
-                            <span>${card.fdecs}</span>
-                        </div>
-                    </div>
-                    
-                    <div class="warning-row">
-                        <span class="instant-badge">⚡ Instant</span>
-                    </div>
-                    
-                    <div class="price-tag">$${card.price}</div>
-                    
-                    <div class="card-actions">
-                        <button class="btn btn-primary" onclick="buyItem(${card.id})">
-                            Buy Now
-                        </button>
-                        <button class="btn btn-secondary" onclick="copyCard(${card.id})">
-                            Copy Info
-                        </button>
-                    </div>
-                </div>
-            `;
-        }
-
-        function renderCards() {
-            const container = document.getElementById('mainContainer');
-            let html = '';
-            
-            for (const [category, items] of Object.entries(grouped)) {
-                html += `
-                    <div class="category-header">
-                        <h2>${category}</h2>
-                        <span class="category-count">${items.length} items</span>
-                    </div>
-                    <div class="cards-grid">
-                        ${items.map((card, idx) => createCard(card, idx)).join('')}
-                    </div>
-                `;
-            }
-            
-            container.innerHTML = html;
-            document.getElementById('totalItems').textContent = cards.length;
-        }
-
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            const toastMessage = document.getElementById('toastMessage');
-            toastMessage.textContent = message;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3000);
-        }
-
-        function copyText(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                showToast('Copied: ' + text);
-            });
-        }
-
-        function copyCard(id) {
-            const card = cards.find(c => c.id === id);
-            const info = `Bank: ${card.bank}\nType: ${card.type}\nBalance: $${card.balance.toLocaleString()}\nLocation: ${card.location}\nSecurity: ${card.security}\nPrice: $${card.price}\n\nContact v2bo.xx on IG to purchase`;
-            navigator.clipboard.writeText(info).then(() => {
-                showToast('Card info copied! Contact v2bo.xx on IG');
-            });
-        }
-
-        function buyItem(id) {
-            const card = cards.find(c => c.id === id);
-            showToast(`Selected: $${card.balance.toLocaleString()} ${card.bank} - Copy info and DM v2bo.xx`);
-        }
-
-        function filterCards(filter) {
-            // Update active button
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.textContent.includes(filter) || (filter === 'all' && btn.textContent === 'All')) {
-                    btn.classList.add('active');
-                }
-            });
-
-            // Show/hide cards based on filter
-            document.querySelectorAll('.card').forEach(card => {
-                if (filter === 'all' || card.dataset.bank === filter || card.dataset.type === filter) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-
-        renderCards();
-    </script>
-</body>
-</html>
+            transition: all 0.3s cubic-bezier(0.4, 0, 0
