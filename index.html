@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Access | Private Market</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <title>Vault | Secure Marketplace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,22 +13,42 @@
         }
 
         :root {
-            --bg-primary: #0d0d12;
-            --bg-secondary: #16161f;
-            --bg-card: #1e1e2a;
-            --bg-card-hover: #272736;
-            --border-color: #2d2d3d;
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #13131f;
+            --bg-card: #1c1c2b;
+            --bg-card-hover: #252538;
+            --border-color: #2d2d42;
             --text-primary: #ffffff;
-            --text-secondary: #8b8b9a;
+            --text-secondary: #8a8a9a;
             --accent-gold: #ffd700;
             --accent-red: #ff4757;
             --accent-green: #2ed573;
-            --accent-blue: #5352ed;
+            --accent-blue: #3742fa;
             --accent-purple: #a55eea;
             --accent-orange: #ff6b35;
+            --accent-cyan: #00d2d3;
             --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-gold: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --gradient-admin: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            --gradient-gold: linear-gradient(135deg, #f9ca24 0%, #f0932b 100%);
+            --gradient-admin: linear-gradient(135deg, #ff6b35 0%, #ff9f43 100%);
+            --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+            --shadow-glow: 0 0 30px rgba(102, 126, 234, 0.3);
+        }
+
+        *::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        *::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        *::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        *::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-purple);
         }
 
         body {
@@ -37,17 +57,47 @@
             color: var(--text-primary);
             min-height: 100vh;
             line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 20% 80%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(165, 94, 234, 0.1) 0%, transparent 50%);
+            animation: rotate 30s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         /* Navigation */
         nav {
-            background: rgba(22, 22, 31, 0.98);
+            background: rgba(19, 19, 31, 0.95);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
-            z-index: 100;
-            padding: 1.2rem 0;
+            z-index: 1000;
+            padding: 1rem 0;
         }
 
         .nav-container {
@@ -60,62 +110,120 @@
         }
 
         .logo {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 800;
             background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
         }
 
-        .nav-links {
+        .logo::before {
+            content: '◈';
+            font-size: 2rem;
+        }
+
+        .nav-center {
             display: flex;
-            gap: 2.5rem;
-            list-style: none;
+            gap: 2rem;
             align-items: center;
         }
 
-        .nav-links a {
+        .nav-link {
             color: var(--text-secondary);
             text-decoration: none;
             font-weight: 500;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            transition: all 0.3s;
             position: relative;
+            padding: 0.5rem 0;
         }
 
-        .nav-links a:hover {
+        .nav-link:hover {
             color: var(--text-primary);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
         }
 
         .discount-btn {
             background: var(--gradient-gold);
-            color: white;
+            color: #000;
             border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 20px;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
             cursor: pointer;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 0.85rem;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .discount-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 20px rgba(240, 147, 251, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(249, 202, 36, 0.3);
         }
 
-        /* Contact Banner */
-        .contact-banner {
-            background: linear-gradient(90deg, rgba(83, 82, 237, 0.1) 0%, rgba(165, 94, 234, 0.05) 100%);
-            border-left: 4px solid var(--accent-purple);
-            margin: 2rem auto;
+        /* Admin Badge */
+        .admin-badge {
+            background: var(--gradient-admin);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: none;
+            align-items: center;
+            gap: 0.4rem;
+            animation: pulse 2s infinite;
+        }
+
+        .admin-badge.active {
+            display: flex;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(255, 107, 53, 0); }
+        }
+
+        /* Contact Section */
+        .contact-section {
             max-width: 1600px;
-            padding: 1.5rem 2rem;
-            border-radius: 0 12px 12px 0;
+            margin: 2rem auto;
+            padding: 0 2rem;
         }
 
-        .contact-banner h3 {
+        .contact-card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(165, 94, 234, 0.05) 100%);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .contact-info h3 {
             color: var(--accent-purple);
             margin-bottom: 0.5rem;
             display: flex;
@@ -123,122 +231,268 @@
             gap: 0.5rem;
         }
 
-        .contact-banner p {
+        .contact-info p {
             color: var(--text-secondary);
-            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
         }
 
-        .contact-handle {
-            font-family: 'JetBrains Mono', monospace;
-            background: var(--bg-card);
-            padding: 0.75rem 1.25rem;
-            border-radius: 8px;
-            display: inline-flex;
-            align-items: center;
+        .contact-actions {
+            display: flex;
             gap: 1rem;
+            align-items: center;
+        }
+
+        .ig-handle {
+            background: var(--bg-card);
             border: 1px solid var(--border-color);
+            padding: 0.75rem 1.25rem;
+            border-radius: 10px;
+            font-family: 'JetBrains Mono', monospace;
             color: var(--accent-gold);
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
 
-        .copy-btn {
-            background: var(--accent-purple);
-            border: none;
-            color: white;
-            padding: 0.4rem 1rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: all 0.2s;
-        }
-
-        .copy-btn:hover {
-            background: #7c3aed;
-            transform: translateY(-1px);
-        }
-
-        /* Stats Bar */
-        .stats-bar {
+        /* Stats Dashboard */
+        .stats-dashboard {
             max-width: 1600px;
             margin: 0 auto 2rem;
             padding: 0 2rem;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 1rem;
         }
 
-        .stat-card {
+        .stat-box {
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
-            padding: 1.25rem;
             border-radius: 12px;
+            padding: 1.5rem;
             text-align: center;
+            transition: all 0.3s;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent-purple);
+            box-shadow: var(--shadow-glow);
         }
 
         .stat-value {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--accent-gold);
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .stat-label {
             color: var(--text-secondary);
             font-size: 0.85rem;
             margin-top: 0.25rem;
-        }
-
-        /* Filters */
-        .filters {
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 0 2rem 2rem;
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .filter-group {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-
-        .filter-label {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
             font-weight: 500;
         }
 
-        .filter-btn {
+        /* Controls Bar */
+        .controls-bar {
+            max-width: 1600px;
+            margin: 0 auto 2rem;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-box input {
+            width: 100%;
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
+            padding: 0.875rem 1rem 0.875rem 2.5rem;
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 3px rgba(165, 94, 234, 0.1);
+        }
+
+        .search-box::before {
+            content: '🔍';
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.5;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 0.5rem;
+            background: var(--bg-secondary);
+            padding: 0.375rem;
+            border-radius: 10px;
+        }
+
+        .filter-tab {
+            background: transparent;
+            border: none;
             color: var(--text-secondary);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
             cursor: pointer;
+            font-weight: 500;
             font-size: 0.85rem;
             transition: all 0.2s;
         }
 
-        .filter-btn:hover, .filter-btn.active {
-            background: var(--accent-purple);
-            color: white;
-            border-color: var(--accent-purple);
+        .filter-tab:hover {
+            color: var(--text-primary);
         }
 
-        /* Container */
+        .filter-tab.active {
+            background: var(--accent-purple);
+            color: white;
+        }
+
+        /* Admin Panel (Hidden by default) */
+        .admin-panel {
+            max-width: 1600px;
+            margin: 0 auto 2rem;
+            padding: 0 2rem;
+            display: none;
+        }
+
+        .admin-panel.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .admin-card {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(255, 159, 67, 0.05) 100%);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-radius: 16px;
+            padding: 1.5rem;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .admin-title {
+            color: var(--accent-orange);
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .admin-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .admin-input-group label {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .admin-input {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 0.75rem;
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .admin-input:focus {
+            outline: none;
+            border-color: var(--accent-orange);
+        }
+
+        .admin-btn {
+            background: var(--gradient-admin);
+            color: white;
+            border: none;
+            padding: 0.875rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .admin-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+        }
+
+        /* Main Container */
         .container {
             max-width: 1600px;
             margin: 0 auto;
             padding: 0 2rem 4rem;
         }
 
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .item-count {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
         /* Cards Grid */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.25rem;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
         }
 
         /* Card */
@@ -247,4 +501,955 @@
             border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 1.5rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(102, 126, 234, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), var(--shadow-glow);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.25rem;
+        }
+
+        .balance-display {
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-badges {
+            display: flex;
+            gap: 0.5rem;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .bank-tag {
+            background: rgba(102, 126, 234, 0.15);
+            color: #a29bfe;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .security-tag {
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .security-high {
+            background: rgba(46, 213, 115, 0.15);
+            color: var(--accent-green);
+        }
+
+        .security-medium {
+            background: rgba(255, 193, 7, 0.15);
+            color: #ffc107;
+        }
+
+        .security-low {
+            background: rgba(255, 71, 87, 0.15);
+            color: var(--accent-red);
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .info-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-secondary);
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .card-type-display {
+            font-weight: 700;
+        }
+
+        .visa { color: #1a1f71; }
+        .mastercard { color: #eb001b; }
+        .amex { color: #016fd0; }
+
+        .warning-box {
+            background: rgba(255, 71, 87, 0.08);
+            border: 1px solid rgba(255, 71, 87, 0.2);
+            border-radius: 8px;
+            padding: 0.6rem 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-red);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .price-display {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--accent-green);
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .original-price {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            text-decoration: line-through;
+            margin-left: 0.5rem;
+        }
+
+        .card-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            padding: 0.875rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-buy {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-buy:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .btn-copy {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-copy:hover {
+            background: var(--border-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-delete {
+            background: rgba(255, 71, 87, 0.1);
+            color: var(--accent-red);
+            border: 1px solid rgba(255, 71, 87, 0.3);
+            display: none;
+        }
+
+        .admin-mode .btn-delete {
+            display: flex;
+        }
+
+        .btn-edit {
+            background: rgba(255, 159, 67, 0.1);
+            color: var(--accent-orange);
+            border: 1px solid rgba(255, 159, 67, 0.3);
+            display: none;
+        }
+
+        .admin-mode .btn-edit {
+            display: flex;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 2rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 100%;
+            animation: modalSlide 0.3s ease;
+        }
+
+        @keyframes modalSlide {
+            from { opacity: 0; transform: scale(0.9) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .modal-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .code-input {
+            width: 100%;
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            padding: 1rem;
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .code-input:focus {
+            outline: none;
+            border-color: var(--accent-purple);
+        }
+
+        .modal-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            z-index: 3000;
+        }
+
+        .toast {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            animation: toastSlide 0.3s ease;
+            min-width: 300px;
+        }
+
+        @keyframes toastSlide {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .toast.success { border-left: 4px solid var(--accent-green); }
+        .toast.error { border-left: 4px solid var(--accent-red); }
+        .toast.info { border-left: 4px solid var(--accent-blue); }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem;
+            color: var(--text-secondary);
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 3rem 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-purple);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .stats-dashboard {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-center { display: none; }
+            .stats-dashboard { grid-template-columns: 1fr; }
+            .controls-bar { flex-direction: column; align-items: stretch; }
+            .search-box { max-width: 100%; }
+            .cards-grid { grid-template-columns: 1fr; }
+            .contact-card { flex-direction: column; text-align: center; }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">VAULT</div>
+            <div class="nav-center">
+                <a href="#" class="nav-link" onclick="filterItems('all')">All Items</a>
+                <a href="#" class="nav-link" onclick="filterItems('high')">High Balance</a>
+                <a href="#" class="nav-link" onclick="filterItems('fresh')">Fresh</a>
+                <a href="#" class="nav-link" onclick="showToast('Support: Contact v2bo.xx on Instagram', 'info')">Support</a>
+            </div>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <div class="admin-badge" id="adminBadge">
+                    👑 ADMIN MODE
+                </div>
+                <button class="discount-btn" onclick="openModal()">
+                    🎟️ Discount Code
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contact Section -->
+    <div class="contact-section">
+        <div class="contact-card">
+            <div class="contact-info">
+                <h3>📩 How to Purchase</h3>
+                <p>Copy any card info and send to <strong>v2bo.xx</strong> on Instagram to complete your order instantly.</p>
+            </div>
+            <div class="contact-actions">
+                <div class="ig-handle">
+                    <span>📷 @v2bo.xx</span>
+                    <button class="copy-btn" onclick="copyToClipboard('v2bo.xx', 'Username copied!')">Copy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Dashboard -->
+    <div class="stats-dashboard">
+        <div class="stat-box">
+            <div class="stat-value" id="totalItems">0</div>
+            <div class="stat-label">Items Available</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-value" id="avgPrice">$0</div>
+            <div class="stat-label">Average Price</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-value" id="priceRange">$0-0</div>
+            <div class="stat-label">Price Range</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-value">24/7</div>
+            <div class="stat-label">Auto Delivery</div>
+        </div>
+    </div>
+
+    <!-- Admin Panel (Hidden) -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-card">
+            <div class="admin-header">
+                <div class="admin-title">
+                    👑 Admin Control Panel
+                    <span style="font-size: 0.8rem; opacity: 0.7; font-weight: 400;">Add, edit, or remove items</span>
+                </div>
+                <button class="admin-btn" onclick="exportData()">📥 Export Data</button>
+            </div>
+            <div class="admin-grid">
+                <div class="admin-input-group">
+                    <label>Bank Name</label>
+                    <input type="text" class="admin-input" id="adminBank" placeholder="e.g. Chase">
+                </div>
+                <div class="admin-input-group">
+                    <label>Card Type</label>
+                    <select class="admin-input" id="adminType">
+                        <option value="VISA">VISA</option>
+                        <option value="MASTERCARD">MASTERCARD</option>
+                        <option value="AMEX">AMEX</option>
+                    </select>
+                </div>
+                <div class="admin-input-group">
+                    <label>Balance ($)</label>
+                    <input type="number" class="admin-input" id="adminBalance" placeholder="2000-26000">
+                </div>
+                <div class="admin-input-group">
+                    <label>Price ($)</label>
+                    <input type="number" class="admin-input" id="adminPrice" placeholder="30-180">
+                </div>
+                <div class="admin-input-group">
+                    <label>Location (ST|ZIP)</label>
+                    <input type="text" class="admin-input" id="adminLocation" placeholder="CA|90210">
+                </div>
+                <div class="admin-input-group">
+                    <label>Security Level</label>
+                    <select class="admin-input" id="adminSecurity">
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                </div>
+            </div>
+            <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
+                <button class="admin-btn" onclick="addNewItem()" style="flex: 1;">➕ Add New Item</button>
+                <button class="admin-btn" onclick="generateRandom()" style="flex: 1; background: var(--accent-purple);">🎲 Generate 10 Random</button>
+                <button class="admin-btn" onclick="clearAll()" style="background: var(--accent-red);">🗑️ Clear All</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls-bar">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search by bank, type, or location..." onkeyup="searchItems()">
+        </div>
+        <div class="filter-tabs">
+            <button class="filter-tab active" onclick="filterItems('all')">All</button>
+            <button class="filter-tab" onclick="filterItems('VISA')">VISA</button>
+            <button class="filter-tab" onclick="filterItems('MASTERCARD')">MC</button>
+            <button class="filter-tab" onclick="filterItems('AMEX')">Amex</button>
+            <button class="filter-tab" onclick="sortItems('price')">Price ↓</button>
+            <button class="filter-tab" onclick="sortItems('balance')">Balance ↓</button>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container" id="mainContainer">
+        <div class="section-header">
+            <div class="section-title">
+                🔥 In Stock
+                <span class="item-count" id="itemCount">0 items</span>
+            </div>
+        </div>
+        <div class="cards-grid" id="cardsGrid">
+            <!-- Cards generated by JS -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="#" onclick="showToast('Terms: All sales final. Contact v2bo.xx for disputes.', 'info')">Terms</a>
+            <a href="#" onclick="showToast('FAQ: Copy info → DM v2bo.xx → Receive instantly.', 'info')">FAQ</a>
+            <a href="#" onclick="showToast('Verified on WWH-Club', 'success')">WWH-Club</a>
+        </div>
+        <p>Contact <strong style="color: var(--accent-purple);">v2bo.xx</strong> on Instagram for purchases</p>
+        <p style="margin-top: 0.5rem; font-size: 0.8rem; opacity: 0.5;">© 2024 Vault Market. All rights reserved.</p>
+    </footer>
+
+    <!-- Discount Modal -->
+    <div class="modal-overlay" id="discountModal">
+        <div class="modal">
+            <button class="close-modal" onclick="closeModal()">×</button>
+            <div class="modal-header">
+                <div class="modal-title">🎟️ Enter Discount Code</div>
+                <div class="modal-subtitle">Enter your code to unlock special pricing</div>
+            </div>
+            <input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10">
+            <button class="modal-btn" onclick="checkCode()">Apply Code</button>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // State
+        let items = [];
+        let isAdmin = false;
+        let discountActive = false;
+        let currentFilter = 'all';
+
+        // Banks & Data
+        const banks = ['Chase', 'Bank of America', 'Wells Fargo', 'Citi', 'PNC', 'US Bank', 'Capital One', 'TD Bank', 'Truist', 'HSBC', 'Barclays', 'Discover'];
+        const states = ['CA', 'TX', 'FL', 'NY', 'PA', 'IL', 'OH', 'GA', 'NC', 'MI', 'NJ', 'VA', 'WA', 'AZ', 'MA', 'IN', 'MO', 'TN', 'MD', 'WI', 'CO', 'MN', 'SC', 'AL', 'LA'];
+        const types = ['VISA', 'MASTERCARD', 'AMEX'];
+        const securities = ['high', 'medium', 'low'];
+
+        // Generate random items
+        function generateItems(count = 100) {
+            const newItems = [];
+            for (let i = 0; i < count; i++) {
+                const balance = randomInt(2000, 26000);
+                const basePrice = Math.floor(balance * randomInt(18, 70) / 1000);
+                const price = Math.min(Math.max(basePrice, 30), 180);
+                
+                newItems.push({
+                    id: Date.now() + i,
+                    bank: randomItem(banks),
+                    type: randomItem(types),
+                    balance: balance,
+                    price: price,
+                    location: `${randomItem(states)}|${randomInt(10000, 99999)}`,
+                    security: randomItem(securities),
+                    fdecs: randomItem(['Fullz', 'Checked', 'Live', 'Verified', 'Fresh Drop']),
+                    added: new Date().toISOString()
+                });
+            }
+            return newItems;
+        }
+
+        function randomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function randomItem(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        // Initialize
+        function init() {
+            const saved = localStorage.getItem('vaultItems');
+            if (saved) {
+                items = JSON.parse(saved);
+            } else {
+                items = generateItems(120);
+                saveItems();
+            }
+            renderItems();
+            updateStats();
+        }
+
+        function saveItems() {
+            localStorage.setItem('vaultItems', JSON.stringify(items));
+        }
+
+        // Render
+        function renderItems() {
+            const grid = document.getElementById('cardsGrid');
+            const filtered = getFilteredItems();
+            
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1/-1;">
+                        <div class="empty-icon">📭</div>
+                        <h3>No items found</h3>
+                        <p>Try adjusting your filters or search terms</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map((item, idx) => createCard(item, idx)).join('');
+            document.getElementById('itemCount').textContent = `${filtered.length} items`;
+        }
+
+        function getFilteredItems() {
+            let filtered = items;
+            
+            if (currentFilter !== 'all') {
+                if (['VISA', 'MASTERCARD', 'AMEX'].includes(currentFilter)) {
+                    filtered = filtered.filter(i => i.type === currentFilter);
+                } else if (currentFilter === 'high') {
+                    filtered = filtered.filter(i => i.balance > 15000);
+                } else if (currentFilter === 'fresh') {
+                    filtered = filtered.filter(i => i.fdecs === 'Fresh Drop');
+                }
+            }
+
+            const search = document.getElementById('searchInput')?.value.toLowerCase() || '';
+            if (search) {
+                filtered = filtered.filter(i => 
+                    i.bank.toLowerCase().includes(search) ||
+                    i.type.toLowerCase().includes(search) ||
+                    i.location.toLowerCase().includes(search)
+                );
+            }
+
+            return filtered;
+        }
+
+        function createCard(item, idx) {
+            const securityLabels = { high: '🔒 High', medium: '⚡ Medium', low: '⚠️ Low' };
+            const securityClass = `security-${item.security}`;
+            const typeClass = item.type.toLowerCase().replace('card', '').trim();
+            const displayPrice = discountActive ? Math.floor(item.price * 0.8) : item.price;
+            
+            return `
+                <div class="card animate-in" style="animation-delay: ${idx * 0.03}s">
+                    <div class="card-header">
+                        <div class="balance-display">$${item.balance.toLocaleString()}</div>
+                        <div class="card-badges">
+                            <span class="bank-tag">${item.bank}</span>
+                            <span class="security-tag ${securityClass}">${securityLabels[item.security]}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-body">
+                        <div class="info-row">
+                            <span class="info-icon">💳</span>
+                            <span class="card-type-display ${typeClass}">${item.type}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-icon">📍</span>
+                            <span>${item.location}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-icon">✓</span>
+                            <span>${item.fdecs}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="warning-box">
+                        <span>⚡</span>
+                        <span>Instant Delivery</span>
+                    </div>
+                    
+                    <div class="price-display">
+                        $${displayPrice}
+                        ${discountActive ? `<span class="original-price">$${item.price}</span>` : ''}
+                    </div>
+                    
+                    <div class="card-actions">
+                        <button class="btn btn-buy" onclick="buyItem(${item.id})">
+                            Buy Now
+                        </button>
+                        <button class="btn btn-copy" onclick="copyItem(${item.id})">
+                            Copy Info
+                        </button>
+                        ${isAdmin ? `
+                        <button class="btn btn-edit" onclick="editItem(${item.id})">
+                            Edit
+                        </button>
+                        <button class="btn btn-delete" onclick="deleteItem(${item.id})">
+                            Delete
+                        </button>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Actions
+        function buyItem(id) {
+            const item = items.find(i => i.id === id);
+            const price = discountActive ? Math.floor(item.price * 0.8) : item.price;
+            copyToClipboard(
+                `Bank: ${item.bank}\nType: ${item.type}\nBalance: $${item.balance.toLocaleString()}\nLocation: ${item.location}\nSecurity: ${item.security}\nPrice: $${price}\n\nContact v2bo.xx on IG to complete purchase`,
+                'Item copied! DM v2bo.xx on Instagram to complete purchase.'
+            );
+        }
+
+        function copyItem(id) {
+            buyItem(id);
+        }
+
+        function deleteItem(id) {
+            if (!confirm('Delete this item?')) return;
+            items = items.filter(i => i.id !== id);
+            saveItems();
+            renderItems();
+            updateStats();
+            showToast('Item deleted', 'success');
+        }
+
+        function editItem(id) {
+            const item = items.find(i => i.id === id);
+            const newPrice = prompt('Enter new price:', item.price);
+            if (newPrice && !isNaN(newPrice)) {
+                item.price = parseInt(newPrice);
+                saveItems();
+                renderItems();
+                showToast('Price updated', 'success');
+            }
+        }
+
+        // Admin Functions
+        function addNewItem() {
+            const bank = document.getElementById('adminBank').value || randomItem(banks);
+            const type = document.getElementById('adminType').value;
+            const balance = parseInt(document.getElementById('adminBalance').value) || randomInt(2000, 26000);
+            const price = parseInt(document.getElementById('adminPrice').value) || randomInt(30, 180);
+            const location = document.getElementById('adminLocation').value || `${randomItem(states)}|${randomInt(10000, 99999)}`;
+            const security = document.getElementById('adminSecurity').value;
+
+            const newItem = {
+                id: Date.now(),
+                bank,
+                type,
+                balance,
+                price,
+                location,
+                security,
+                fdecs: 'Manual Add',
+                added: new Date().toISOString()
+            };
+
+            items.unshift(newItem);
+            saveItems();
+            renderItems();
+            updateStats();
+            showToast('Item added successfully', 'success');
+
+            // Clear inputs
+            document.getElementById('adminBank').value = '';
+            document.getElementById('adminBalance').value = '';
+            document.getElementById('adminPrice').value = '';
+            document.getElementById('adminLocation').value = '';
+        }
+
+        function generateRandom() {
+            const newItems = generateItems(10);
+            items = [...newItems, ...items];
+            saveItems();
+            renderItems();
+            updateStats();
+            showToast('Generated 10 random items', 'success');
+        }
+
+        function clearAll() {
+            if (!confirm('Clear all items? This cannot be undone.')) return;
+            items = [];
+            saveItems();
+            renderItems();
+            updateStats();
+            showToast('All items cleared', 'error');
+        }
+
+        function exportData() {
+            const data = JSON.stringify(items, null, 2);
+            const blob = new Blob([data], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `vault-data-${Date.now()}.json`;
+            a.click();
+            showToast('Data exported', 'success');
+        }
+
+        // Filter & Sort
+        function filterItems(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-tab').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.includes(filter) || (filter === 'all' && btn.textContent === 'All')) {
+                    btn.classList.add('active');
+                }
+            });
+            renderItems();
+        }
+
+        function sortItems(by) {
+            if (by === 'price') {
+                items.sort((a, b) => a.price - b.price);
+            } else if (by === 'balance') {
+                items.sort((a, b) => b.balance - a.balance);
+            }
+            saveItems();
+            renderItems();
+            showToast(`Sorted by ${by}`, 'info');
+        }
+
+        function searchItems() {
+            renderItems();
+        }
+
+        // Discount Code
+        function openModal() {
+            document.getElementById('discountModal').classList.add('active');
+            document.getElementById('codeInput').focus();
+        }
+
+        function closeModal() {
+            document.getElementById('discountModal').classList.remove('active');
+        }
+
+        function checkCode() {
+            const code = document.getElementById('codeInput').value.trim();
+            
+            if (code === 'GAY') {
+                isAdmin = true;
+                document.getElementById('adminPanel').classList.add('active');
+                document.getElementById('adminBadge').classList.add('active');
+                document.body.classList.add('admin-mode');
+                closeModal();
+                showToast('👑 Admin mode activated! You can now add, edit, and delete items.', 'success');
+                renderItems();
+            } else if (code === 'SAVE20') {
+                discountActive = true;
+                closeModal();
+                renderItems();
+                showToast('🎉 20% discount applied to all items!', 'success');
+            } else {
+                showToast('❌ Invalid code', 'error');
+            }
+        }
+
+        // Stats
+        function updateStats() {
+            document.getElementById('totalItems').textContent = items.length;
+            
+            if (items.length > 0) {
+                const prices = items.map(i => i.price);
+                const avg = Math.floor(prices.reduce((a, b) => a + b, 0) / prices.length);
+                const min = Math.min(...prices);
+                const max = Math.max(...prices);
+                
+                document.getElementById('avgPrice').textContent = `$${avg}`;
+                document.getElementById('priceRange').textContent = `$${min}-$${max}`;
+            }
+        }
+
+        // Utilities
+        function copyToClipboard(text, message) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast(message, 'success');
+            });
+        }
+
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            const icons = { success: '✓', error: '✕', info: 'ℹ' };
+            toast.innerHTML = `<span style="font-size: 1.2rem;">${icons[type]}</span><span>${message}</span>`;
+            
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 4000);
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+            if (e.ctrlKey && e.key === 'k') {
+                e.preventDefault();
+                document.getElementById('searchInput').focus();
+            }
+        });
+
+        // Close modal on overlay click
+        document.getElementById('discountModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('discountModal')) closeModal();
+        });
+
+        // Init
+        init();
+    </script>
+</body>
+</html>
