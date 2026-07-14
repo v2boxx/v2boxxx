@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>◈ D4RK_M4RK3T ◈</title>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <title>Dark Market - Verified Dumps</title>
     <style>
         * {
             margin: 0;
@@ -12,375 +11,252 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --term-bg: #050505;
-            --term-green: #0f0;
-            --term-dim: #0a0;
-            --term-red: #f00;
-            --term-amber: #ffb000;
-            --term-cyan: #0ff;
-            --glitch: #ff00ff;
-        }
-
-        @keyframes flicker {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.95; }
-            52% { opacity: 0.5; }
-            54% { opacity: 0.95; }
-        }
-
-        @keyframes scanline {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(100vh); }
-        }
-
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
-        }
-
-        @keyframes glitch {
-            0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(-2px, -2px); }
-            60% { transform: translate(2px, 2px); }
-            80% { transform: translate(2px, -2px); }
-            100% { transform: translate(0); }
-        }
-
-        @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-
         body {
-            background: var(--term-bg);
-            color: var(--term-green);
-            font-family: 'VT323', monospace;
-            font-size: 18px;
-            line-height: 1.4;
-            overflow-x: hidden;
-            animation: flicker 4s infinite;
-        }
-
-        /* CRT Overlay */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: repeating-linear-gradient(
-                0deg,
-                rgba(0, 255, 0, 0.03),
-                rgba(0, 255, 0, 0.03) 1px,
-                transparent 1px,
-                transparent 2px
-            );
-            pointer-events: none;
-            z-index: 9999;
-        }
-
-        /* Scanline */
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 10px;
-            background: rgba(0, 255, 0, 0.1);
-            animation: scanline 8s linear infinite;
-            pointer-events: none;
-            z-index: 9998;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #fff;
+            color: #000;
+            line-height: 1.5;
+            font-size: 14px;
         }
 
         /* Header */
         .header {
-            border-bottom: 2px solid var(--term-dim);
-            padding: 1rem;
+            border-bottom: 2px solid #000;
+            padding: 20px;
             text-align: center;
-            position: relative;
         }
 
-        .ascii-art {
-            font-size: 12px;
-            line-height: 1.2;
-            color: var(--term-red);
-            margin-bottom: 0.5rem;
-            white-space: pre;
-            text-shadow: 0 0 10px var(--term-red);
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
         }
 
-        .title {
-            font-size: 2.5rem;
-            color: var(--term-green);
-            text-shadow: 0 0 20px var(--term-green);
-            letter-spacing: 0.2em;
-            animation: glitch 3s infinite;
-        }
-
-        .subtitle {
-            color: var(--term-amber);
-            font-size: 1rem;
-            margin-top: 0.5rem;
+        .header p {
+            color: #666;
+            font-size: 13px;
         }
 
         /* Status Bar */
-        .status-bar {
-            background: var(--term-dim);
-            padding: 0.5rem 1rem;
+        .status {
+            background: #f5f5f5;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 20px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .status-inner {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
-            border-bottom: 1px solid var(--term-green);
-            font-size: 0.9rem;
         }
 
-        .status-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .blink {
-            animation: blink 1s infinite;
-        }
-
-        /* Warning Box */
-        .warning-box {
-            border: 2px solid var(--term-red);
-            background: rgba(255, 0, 0, 0.1);
-            margin: 1rem;
-            padding: 1rem;
+        /* Warning */
+        .warning {
+            background: #000;
+            color: #fff;
+            padding: 15px;
             text-align: center;
+            font-size: 13px;
+            font-weight: 600;
         }
 
-        .warning-text {
-            color: var(--term-red);
-            font-size: 1.2rem;
-            text-shadow: 0 0 10px var(--term-red);
-        }
-
-        /* Marquee */
-        .marquee-container {
-            background: var(--term-dim);
-            border-top: 1px solid var(--term-green);
-            border-bottom: 1px solid var(--term-green);
-            overflow: hidden;
-            white-space: nowrap;
-            padding: 0.5rem;
-        }
-
-        .marquee {
-            display: inline-block;
-            animation: marquee 20s linear infinite;
-            color: var(--term-amber);
-        }
-
-        /* Contact Section */
-        .contact-section {
-            border: 1px dashed var(--term-cyan);
-            margin: 1rem;
-            padding: 1rem;
-            background: rgba(0, 255, 255, 0.05);
-        }
-
-        .contact-title {
-            color: var(--term-cyan);
+        /* Contact */
+        .contact {
+            border-bottom: 1px solid #ddd;
+            padding: 20px;
             text-align: center;
-            margin-bottom: 1rem;
+            background: #fafafa;
+        }
+
+        .contact h2 {
+            font-size: 12px;
             text-transform: uppercase;
-            letter-spacing: 0.3em;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            color: #666;
         }
 
-        .contact-info {
-            display: flex;
-            justify-content: center;
+        .contact-box {
+            display: inline-flex;
             align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
+            gap: 15px;
+            border: 1px solid #000;
+            padding: 15px 25px;
+            background: #fff;
         }
 
-        .handle-box {
-            border: 1px solid var(--term-green);
-            padding: 0.75rem 1.5rem;
-            background: var(--term-bg);
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 1.3rem;
+        .handle {
+            font-family: "Courier New", monospace;
+            font-size: 18px;
+            font-weight: 600;
         }
 
         .copy-btn {
-            background: var(--term-dim);
-            border: 1px solid var(--term-green);
-            color: var(--term-green);
-            padding: 0.5rem 1rem;
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
             cursor: pointer;
-            font-family: inherit;
-            font-size: 1rem;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .copy-btn:hover {
-            background: var(--term-green);
-            color: var(--term-bg);
+            background: #333;
         }
 
         /* Stats */
         .stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1px;
-            background: var(--term-dim);
-            margin: 1rem;
-            border: 1px solid var(--term-dim);
+            display: flex;
+            border-bottom: 1px solid #ddd;
         }
 
-        .stat-box {
-            background: var(--term-bg);
-            padding: 1rem;
+        .stat {
+            flex: 1;
+            padding: 25px;
             text-align: center;
+            border-right: 1px solid #ddd;
+        }
+
+        .stat:last-child {
+            border-right: none;
         }
 
         .stat-value {
-            font-size: 2rem;
-            color: var(--term-amber);
-            text-shadow: 0 0 10px var(--term-amber);
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
         }
 
         .stat-label {
-            font-size: 0.9rem;
-            color: var(--term-dim);
+            font-size: 11px;
             text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
         }
 
         /* Controls */
         .controls {
-            padding: 1rem;
-            border-bottom: 1px solid var(--term-dim);
+            padding: 20px;
+            border-bottom: 1px solid #ddd;
+            background: #fafafa;
         }
 
-        .filter-row {
+        .filter-btns {
             display: flex;
-            gap: 0.5rem;
+            gap: 10px;
+            margin-bottom: 15px;
             flex-wrap: wrap;
-            justify-content: center;
-            margin-bottom: 1rem;
         }
 
         .filter-btn {
-            background: var(--term-bg);
-            border: 1px solid var(--term-dim);
-            color: var(--term-dim);
-            padding: 0.5rem 1rem;
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 8px 16px;
             cursor: pointer;
-            font-family: inherit;
-            font-size: 1rem;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .filter-btn:hover, .filter-btn.active {
-            border-color: var(--term-green);
-            color: var(--term-green);
-            background: var(--term-dim);
+            background: #000;
+            color: #fff;
+            border-color: #000;
         }
 
-        .search-box {
+        .search {
             width: 100%;
-            background: var(--term-bg);
-            border: 1px solid var(--term-dim);
-            color: var(--term-green);
-            padding: 0.75rem;
-            font-family: inherit;
-            font-size: 1rem;
+            padding: 10px;
+            border: 1px solid #ddd;
+            font-size: 14px;
         }
 
-        .search-box:focus {
+        .search:focus {
             outline: none;
-            border-color: var(--term-green);
+            border-color: #000;
         }
 
         /* Grid */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1rem;
-            padding: 1rem;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
         }
 
         /* Card */
         .card {
-            border: 1px solid var(--term-dim);
-            background: rgba(0, 20, 0, 0.5);
-            padding: 1rem;
-            position: relative;
-        }
-
-        .card::before {
-            content: '>';
-            position: absolute;
-            left: -1px;
-            top: -1px;
-            background: var(--term-green);
-            color: var(--term-bg);
-            padding: 0.2rem 0.5rem;
-            font-size: 0.8rem;
+            border: 1px solid #ddd;
+            padding: 20px;
+            background: #fff;
         }
 
         .card:hover {
-            border-color: var(--term-green);
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+            border-color: #000;
         }
 
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 1rem;
-            padding-top: 0.5rem;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
         }
 
         .balance {
-            font-size: 2rem;
-            color: var(--term-amber);
-            text-shadow: 0 0 15px var(--term-amber);
-            font-family: 'Share Tech Mono', monospace;
+            font-size: 22px;
+            font-weight: 700;
         }
 
-        .bank-tag {
-            border: 1px solid var(--term-red);
-            color: var(--term-red);
-            padding: 0.2rem 0.5rem;
-            font-size: 0.8rem;
+        .bank {
+            font-size: 11px;
             text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            border: 1px solid #ddd;
+            padding: 4px 8px;
         }
 
         .details {
-            margin-bottom: 1rem;
+            margin-bottom: 15px;
         }
 
-        .detail-line {
+        .row {
             display: flex;
             justify-content: space-between;
-            padding: 0.4rem 0;
-            border-bottom: 1px dotted var(--term-dim);
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 13px;
         }
 
-        .detail-label {
-            color: var(--term-dim);
+        .row:last-child {
+            border-bottom: none;
         }
 
-        .detail-value {
-            color: var(--term-green);
-            font-family: 'Share Tech Mono', monospace;
+        .label {
+            color: #666;
         }
 
-        .security-high { color: var(--term-green); }
-        .security-medium { color: var(--term-amber); }
-        .security-low { color: var(--term-red); }
+        .security-high { color: #000; font-weight: 600; }
+        .security-medium { color: #666; }
+        .security-low { color: #999; }
 
-        .price-section {
-            border-top: 2px solid var(--term-dim);
-            padding-top: 1rem;
-            margin-top: 1rem;
+        .price-box {
+            border-top: 2px solid #000;
+            padding-top: 15px;
+            margin-top: 15px;
         }
 
         .price-row {
@@ -390,218 +266,166 @@
         }
 
         .price {
-            font-size: 2.5rem;
-            color: var(--term-green);
-            text-shadow: 0 0 20px var(--term-green);
-            font-family: 'Share Tech Mono', monospace;
+            font-size: 28px;
+            font-weight: 700;
         }
 
-        .price-note {
-            color: var(--term-dim);
-            font-size: 0.9rem;
+        .pct {
+            font-size: 12px;
+            color: #666;
         }
 
-        .card-actions {
+        .actions {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0.5rem;
-            margin-top: 1rem;
+            gap: 10px;
+            margin-top: 15px;
         }
 
         .btn {
-            padding: 0.75rem;
-            border: 1px solid;
-            background: transparent;
+            padding: 12px;
+            border: 1px solid #000;
+            background: #fff;
             cursor: pointer;
-            font-family: inherit;
-            font-size: 1.1rem;
+            font-size: 12px;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 1px;
+            font-weight: 600;
         }
 
         .btn-buy {
-            border-color: var(--term-green);
-            color: var(--term-green);
+            background: #000;
+            color: #fff;
         }
 
         .btn-buy:hover {
-            background: var(--term-green);
-            color: var(--term-bg);
-            box-shadow: 0 0 20px var(--term-green);
-        }
-
-        .btn-copy {
-            border-color: var(--term-cyan);
-            color: var(--term-cyan);
+            background: #333;
         }
 
         .btn-copy:hover {
-            background: var(--term-cyan);
-            color: var(--term-bg);
+            background: #f5f5f5;
+        }
+
+        /* Footer */
+        .footer {
+            border-top: 2px solid #000;
+            padding: 40px 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .footer a {
+            color: #000;
+            text-decoration: underline;
         }
 
         /* Toast */
         .toast {
             position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            border: 2px solid var(--term-green);
-            background: var(--term-bg);
-            padding: 1rem 1.5rem;
-            box-shadow: 0 0 30px var(--term-green);
-            z-index: 10000;
-            animation: glitch 0.3s;
+            bottom: 20px;
+            right: 20px;
+            background: #000;
+            color: #fff;
+            padding: 15px 25px;
+            font-size: 13px;
         }
 
-        /* Footer */
-        .footer {
-            border-top: 2px solid var(--term-dim);
-            padding: 2rem 1rem;
+        /* Empty */
+        .empty {
             text-align: center;
-            color: var(--term-dim);
+            padding: 60px;
+            color: #666;
         }
 
-        .footer a {
-            color: var(--term-cyan);
-            text-decoration: none;
-        }
-
-        /* Responsive */
         @media (max-width: 768px) {
-            .stats { grid-template-columns: repeat(2, 1fr); }
-            .ascii-art { font-size: 8px; }
-            .title { font-size: 1.5rem; }
-        }
-
-        /* Loading */
-        .loading-text::after {
-            content: '...';
-            animation: dots 1.5s steps(4, end) infinite;
-        }
-
-        @keyframes dots {
-            0%, 20% { content: ''; }
-            40% { content: '.'; }
-            60% { content: '..'; }
-            80%, 100% { content: '...'; }
+            .stats { flex-direction: column; }
+            .stat { border-right: none; border-bottom: 1px solid #ddd; }
+            .grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <div class="ascii-art">
-    ██████╗  █████╗ ██████╗ ██╗  ██╗    ███╗   ███╗ █████╗ ██████╗ ██╗  ██╗███████╗████████╗
-    ██╔══██╗██╔══██╗██╔══██╗██║ ██╔╝    ████╗ ████║██╔══██╗██╔══██╗██║ ██╔╝██╔════╝╚══██╔══╝
-    ██║  ██║███████║██████╔╝█████╔╝     ██╔████╔██║███████║██████╔╝█████╔╝ █████╗     ██║   
-    ██║  ██║██╔══██║██╔══██╗██╔═██╗     ██║╚██╔╝██║██╔══██║██╔══██╗██╔═██╗ ██╔══╝     ██║   
-    ██████╔╝██║  ██║██║  ██║██║  ██╗    ██║ ╚═╝ ██║██║  ██║██║  ██║██║  ██╗███████╗   ██║   
-    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝    ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   
-        </div>
-        <div class="title">◈ D4RK_M4RK3T ◈</div>
-        <div class="subtitle">[ V3R1F13D_DUMPS // 1NST4NT_D3L1V3RY ]</div>
+        <h1>DARK MARKET</h1>
+        <p>Verified Dumps — Instant Delivery</p>
     </div>
 
-    <div class="status-bar">
-        <div class="status-item">
-            <span class="blink">⬤</span>
-            <span>TOR_CONNECTION: ENCRYPTED</span>
-        </div>
-        <div class="status-item">
-            <span>USERS_ONLINE: <span id="userCount">847</span></span>
-        </div>
-        <div class="status-item">
-            <span>LAST_UPDATE: <span id="lastUpdate"></span></span>
-        </div>
-        <div class="status-item">
-            <span style="color: var(--term-red);">⚠ EXIT_NODE_DETECTED</span>
+    <div class="status">
+        <div class="status-inner">
+            <span>Connection: Secure</span>
+            <span>Last Update: <span id="updateTime"></span></span>
+            <span>Items: <span id="itemCount">0</span></span>
         </div>
     </div>
 
-    <div class="marquee-container">
-        <div class="marquee">
-            🔥 FRESH_DROPS_EVERY_HOUR 🔥 | ⚡ AUTO_DELIVERY_24_7 ⚡ | 🔒 ESCROW_ACCEPTED 🔒 | 📞 SUPPORT: @v2bo.xx 📞 | 💰 BTC_ETH_XMR_ACCEPTED 💰 | 🚨 SCAMMERS_WILL_BE_DOXXED 🚨
-        </div>
+    <div class="warning">
+        All sales final. No refunds. Copy card info and contact vendor to complete purchase.
     </div>
 
-    <div class="warning-box">
-        <div class="warning-text">
-            ⚠⚠⚠ W4RN1NG: 4LL_TR4NS4CT10NS_F1N4L // N0_R3FUNDS // C0PY_1NF0_4ND_DM_v2bo.xx_T0_PURCH4S3 ⚠⚠⚠
-        </div>
-    </div>
-
-    <div class="contact-section">
-        <div class="contact-title">◄ C0NT4CT_M3TH0D ►</div>
-        <div class="contact-info">
-            <span style="color: var(--term-dim);">[1] C0PY_C4RD_1NF0</span>
-            <span style="color: var(--term-dim);">→</span>
-            <span style="color: var(--term-dim);">[2] DM_T0:</span>
-            <div class="handle-box">
-                @v2bo.xx
-            </div>
-            <button class="copy-btn" onclick="copyHandle()">[C0PY]</button>
+    <div class="contact">
+        <h2>How to Order</h2>
+        <div class="contact-box">
+            <span style="color: #666; font-size: 13px;">Contact:</span>
+            <span class="handle">@v2bo.xx</span>
+            <button class="copy-btn" onclick="copyHandle()">Copy</button>
         </div>
     </div>
 
     <div class="stats">
-        <div class="stat-box">
-            <div class="stat-value" id="statTotal">...</div>
-            <div class="stat-label">1N_ST0CK</div>
+        <div class="stat">
+            <div class="stat-value" id="statTotal">-</div>
+            <div class="stat-label">In Stock</div>
         </div>
-        <div class="stat-box">
-            <div class="stat-value" id="statAvg">...</div>
-            <div class="stat-label">4VG_PR1C3</div>
+        <div class="stat">
+            <div class="stat-value" id="statAvg">-</div>
+            <div class="stat-label">Avg Price</div>
         </div>
-        <div class="stat-box">
-            <div class="stat-value" id="statRange">...</div>
-            <div class="stat-label">PR1C3_R4NG3</div>
+        <div class="stat">
+            <div class="stat-value" id="statRange">-</div>
+            <div class="stat-label">Price Range</div>
         </div>
-        <div class="stat-box">
+        <div class="stat">
             <div class="stat-value">98%</div>
-            <div class="stat-label">V4L1D_R4T3</div>
+            <div class="stat-label">Valid Rate</div>
         </div>
     </div>
 
     <div class="controls">
-        <div class="filter-row">
-            <button class="filter-btn active" onclick="filter('all')">[4LL]</button>
-            <button class="filter-btn" onclick="filter('VISA')">[V1S4]</button>
-            <button class="filter-btn" onclick="filter('MASTERCARD')">[M4ST3RC4RD]</button>
-            <button class="filter-btn" onclick="filter('AMEX')">[4M3X]</button>
-            <button class="filter-btn" onclick="filter('DISCOVER')">[D1SC0V3R]</button>
+        <div class="filter-btns">
+            <button class="filter-btn active" onclick="filter('all')">All</button>
+            <button class="filter-btn" onclick="filter('VISA')">Visa</button>
+            <button class="filter-btn" onclick="filter('MASTERCARD')">Mastercard</button>
+            <button class="filter-btn" onclick="filter('AMEX')">Amex</button>
+            <button class="filter-btn" onclick="filter('DISCOVER')">Discover</button>
         </div>
-        <input type="text" class="search-box" id="search" placeholder="> S34RCH_B4NK_Typ3_L0C4T10N..." onkeyup="search()">
+        <input type="text" class="search" id="search" placeholder="Search bank, type, or location..." onkeyup="search()">
     </div>
 
-    <div class="grid" id="grid">
-        <div style="text-align: center; padding: 3rem; color: var(--term-dim);">
-            <div class="loading-text">L04D1NG_D4T4</div>
+    <div class="container">
+        <div class="grid" id="grid">
+            <div class="empty">Loading inventory...</div>
         </div>
     </div>
 
     <div class="footer">
-        <p>© 2024 D4RK_M4RK3T // V3R1F13D_V3ND0R_S1NC3_2022</p>
-        <p style="margin-top: 0.5rem;">
-            C0NT4CT: <a href="#">@v2bo.xx</a> (1NST4GR4M) | 
-            WWH_CLUB_V3R1F13D | 
-            <span style="color: var(--term-red);">SC4MM3RS_W1LL_B3_TR4CK3D</span>
-        </p>
+        <p>Contact <a href="#">@v2bo.xx</a> on Instagram for support</p>
+        <p style="margin-top: 10px;">Verified on WWH-Club | Escrow Accepted</p>
     </div>
 
     <script>
-        // Generate data immediately on load
-        const banks = ['Chase', 'BofA', 'WellsFargo', 'Citi', 'PNC', 'USBank', 'CapOne', 'TD', 'NavyFed', 'Discover'];
+        const banks = ['Chase', 'Bank of America', 'Wells Fargo', 'Citi', 'PNC', 'US Bank', 'Capital One', 'TD Bank', 'Navy Federal', 'Discover'];
         const states = ['CA','TX','FL','NY','PA','IL','OH','GA','NC','MI','NJ','VA','WA','AZ','MA','IN','MO','TN','MD','WI','CO','MN','SC','AL','LA','KY','OR','OK','CT','UT','NV','KS','AR','NE','IA','NH','MS','NM','WV'];
         const types = ['VISA', 'MASTERCARD', 'AMEX', 'DISCOVER'];
         
         let items = [];
         let currentFilter = 'all';
 
-        function generate() {
-            items = [];
+        function init() {
+            // Generate 150 items
             for (let i = 0; i < 150; i++) {
                 const balance = Math.floor(Math.random() * (26000 - 2000 + 1)) + 2000;
-                // Price = 0.5% to 2% of balance, min $15, max $100
                 const pct = 0.005 + (Math.random() * 0.015);
                 let price = Math.floor(balance * pct);
                 price = Math.max(15, Math.min(price, 100));
@@ -616,8 +440,13 @@
                     security: ['high', 'medium', 'low'][Math.floor(Math.random() * 3)]
                 });
             }
+            
             render();
             updateStats();
+            
+            // Set update time
+            const now = new Date();
+            document.getElementById('updateTime').textContent = now.toLocaleTimeString();
         }
 
         function render() {
@@ -638,48 +467,48 @@
             }
 
             if (filtered.length === 0) {
-                grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--term-red);">[ N0_1T3MS_F0UND ]</div>';
+                grid.innerHTML = '<div class="empty">No items found</div>';
                 return;
             }
 
             grid.innerHTML = filtered.map(item => {
                 const secClass = `security-${item.security}`;
-                const secText = item.security === 'high' ? 'H1GH' : item.security === 'medium' ? 'M3D' : 'L0W';
+                const secText = item.security === 'high' ? 'High' : item.security === 'medium' ? 'Medium' : 'Low';
                 const pct = ((item.price / item.balance) * 100).toFixed(1);
                 
                 return `
                     <div class="card">
                         <div class="card-header">
                             <div class="balance">$${item.balance.toLocaleString()}</div>
-                            <div class="bank-tag">${item.bank}</div>
+                            <div class="bank">${item.bank}</div>
                         </div>
                         <div class="details">
-                            <div class="detail-line">
-                                <span class="detail-label">[TYP3]</span>
-                                <span class="detail-value">${item.type}</span>
+                            <div class="row">
+                                <span class="label">Type</span>
+                                <span>${item.type}</span>
                             </div>
-                            <div class="detail-line">
-                                <span class="detail-label">[L0C]</span>
-                                <span class="detail-value">${item.location}</span>
+                            <div class="row">
+                                <span class="label">Location</span>
+                                <span>${item.location}</span>
                             </div>
-                            <div class="detail-line">
-                                <span class="detail-label">[S3C]</span>
-                                <span class="detail-value ${secClass}">${secText}</span>
+                            <div class="row">
+                                <span class="label">Security</span>
+                                <span class="${secClass}">${secText}</span>
                             </div>
-                            <div class="detail-line">
-                                <span class="detail-label">[ST4TUS]</span>
-                                <span class="detail-value" style="color: var(--term-green);">L1V3 ✓</span>
+                            <div class="row">
+                                <span class="label">Status</span>
+                                <span>Live</span>
                             </div>
                         </div>
-                        <div class="price-section">
+                        <div class="price-box">
                             <div class="price-row">
                                 <span class="price">$${item.price}</span>
-                                <span class="price-note">(${pct}%)</span>
+                                <span class="pct">${pct}% of balance</span>
                             </div>
                         </div>
-                        <div class="card-actions">
-                            <button class="btn btn-buy" onclick="buy(${item.id})">[BUY]</button>
-                            <button class="btn btn-copy" onclick="copy(${item.id})">[C0PY]</button>
+                        <div class="actions">
+                            <button class="btn btn-buy" onclick="buy(${item.id})">Buy</button>
+                            <button class="btn btn-copy" onclick="copy(${item.id})">Copy Info</button>
                         </div>
                     </div>
                 `;
@@ -687,6 +516,7 @@
         }
 
         function updateStats() {
+            document.getElementById('itemCount').textContent = items.length;
             document.getElementById('statTotal').textContent = items.length;
             const prices = items.map(i => i.price);
             const avg = Math.floor(prices.reduce((a,b) => a+b, 0) / prices.length);
@@ -706,43 +536,31 @@
         }
 
         function buy(id) {
-            const item = items.find(i => i.id === id);
-            copy(item.id);
-            toast('C0P13D! DM @v2bo.xx T0 C0MPL3T3_PURCH4S3');
+            copy(id);
+            toast('Copied. Contact @v2bo.xx to complete purchase.');
         }
 
         function copy(id) {
             const item = items.find(i => i.id === id);
-            const text = `B4NK: ${item.bank}\nTYP3: ${item.type}\nB4L: $${item.balance.toLocaleString()}\nPR1C3: $${item.price}\nL0C: ${item.location}\n\nDM @v2bo.xx 0N 1G`;
+            const text = `Bank: ${item.bank}\nType: ${item.type}\nBalance: $${item.balance.toLocaleString()}\nPrice: $${item.price}\nLocation: ${item.location}\n\nContact @v2bo.xx on Instagram`;
             navigator.clipboard.writeText(text);
-            toast('1NF0_C0P13D_T0_CL1PB04RD');
+            toast('Card info copied to clipboard');
         }
 
         function copyHandle() {
             navigator.clipboard.writeText('v2bo.xx');
-            toast('@v2bo.xx C0P13D');
+            toast('Username copied');
         }
 
         function toast(msg) {
             const t = document.createElement('div');
             t.className = 'toast';
-            t.textContent = `[ ${msg} ]`;
+            t.textContent = msg;
             document.body.appendChild(t);
             setTimeout(() => t.remove(), 3000);
         }
 
-        // Fake user counter
-        setInterval(() => {
-            const count = 840 + Math.floor(Math.random() * 20);
-            document.getElementById('userCount').textContent = count;
-        }, 5000);
-
-        // Set last update time
-        const now = new Date();
-        document.getElementById('lastUpdate').textContent = now.toLocaleTimeString();
-
-        // Generate on load
-        generate();
+        init();
     </script>
 
 </body>
